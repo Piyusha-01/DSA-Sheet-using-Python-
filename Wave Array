@@ -1,0 +1,31 @@
+Wave Array
+Given a sorted array arr[] of distinct integers. Sort the array into a wave-like array(In Place). In other words, arrange the elements into a sequence such that arr[1] >= arr[2] <= arr[3] >= arr[4] <= arr[5].....
+If there are multiple solutions, find the lexicographically smallest one.
+Note: The given array is sorted in ascending order, and you don't need to return anything to change the original array.
+Examples:
+Input: n = 5, arr[] = {1,2,3,4,5}
+Output: 2 1 4 3 5
+Explanation: Array elements after sorting it in the waveform are 2 1 4 3 5.
+Input: n = 6, arr[] = {2,4,7,8,9,10}
+Output: 4 2 8 7 10 9
+Explanation: Array elements after sorting it in the waveform are 4 2 8 7 10 9.
+Expected Time Complexity: O(n).
+Expected Auxiliary Space: O(1).
+Constraints:
+1 ≤ n ≤ 106
+0 ≤ arr[i] ≤107
+
+
+solution:
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+from typing import List
+class Solution:
+    def convertToWave(self, n : int, arr : List[int]) -> None:
+        # code here
+        for i in range(1,n,2):
+        # If the current element is greater than the previous element, swap them
+            if arr[i] > arr[i-1]:
+                arr[i], arr[i-1] = arr[i-1], arr[i]
+        # If the current element is greater than the next element, swap them (only if i+1 is within bounds)
+            if i+1 < n and arr[i] > arr[i+1]:
+                arr[i], arr[i+1] = arr[i+1], arr[i]
