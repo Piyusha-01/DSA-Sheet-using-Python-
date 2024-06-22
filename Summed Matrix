@@ -22,3 +22,16 @@ Expected Time Complexity: O(1)
 Expected Auxiliary Space: O(1)
 Constraints:
 1 ≤ n,q ≤ 1018
+
+
+
+Solution:
+class Solution:
+    def sumMatrix(self, n, q):
+        # code here 
+        start_i = max(1, q - n)
+        end_i = min(n, q - 1)
+        if start_i <= end_i:
+            return end_i - start_i + 1
+        else:
+            return 0
