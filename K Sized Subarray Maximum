@@ -51,4 +51,28 @@ def max_of_subarrays(self, arr, n, k):
                 m.append(max(arr[i:i + k]))
             return m
 windowing approach:
-
+class Solution:
+    def max_of_subarrays(self, arr, n, k):
+        # Initialize deque and result list
+        dq = deque()
+        result = []
+        # Process the first k elements (first window)
+        for i in range(k):
+            while dq and arr[i] >= arr[dq[-1]]:
+                dq.pop()
+            dq.append(i)
+        # Process the rest of the elements
+        for i in range(k, n):
+            # Append the max of the previous window
+            result.append(arr[dq[0]])
+            # Remove elements not in the current window
+            while dq and dq[0] <= i - k:
+                dq.popleft()
+            # Remove all elements smaller than the currently being added element (arr[i])
+            while dq and arr[i] >= arr[dq[-1]]:
+                dq.pop()
+            # Add current element at the end of the deque
+            dq.append(i)
+    # Add the maximum for the last window
+        result.append(arr[dq[0]])
+        return result
