@@ -1,0 +1,20 @@
+Given two integer variables a and b, and a boolean variable flag. The task is to check the status and return accordingly.
+Return True for the following cases:
+
+Either a or b (not both) is non-negative and the flag is false.
+Both a and b are negative and the flag is true.
+Otherwise, return false.
+
+
+solution:
+-----------------------------------------------------------------------
+def check_status(a, b, flag):
+    if flag:
+        # Check if both a and b are negative
+        if a < 0 and b < 0:
+            return True
+    else:
+        # Check if either a or b is non-negative, but not both
+        if (a >= 0 and b < 0) or (a < 0 and b >= 0):
+            return True
+        return False
