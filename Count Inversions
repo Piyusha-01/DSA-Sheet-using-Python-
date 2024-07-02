@@ -1,0 +1,90 @@
+Count Inversions
+Given an array of integers. Find the Inversion Count in the array.  Two array elements arr[i] and arr[j] form an inversion if arr[i] > arr[j] and i < j.
+Inversion Count: For an array, inversion count indicates how far (or close) the array is from being sorted. If the array is already sorted then the inversion count is 0.
+If an array is sorted in the reverse order then the inversion count is the maximum. 
+Examples:
+Input: n = 5, arr[] = {2, 4, 1, 3, 5}
+Output: 3
+Explanation: The sequence 2, 4, 1, 3, 5 has three inversions (2, 1), (4, 1), (4, 3).
+Input: n = 5, arr[] = {2, 3, 4, 5, 6}
+Output: 0
+Explanation: As the sequence is already sorted so there is no inversion count.
+Input: n = 3, arr[] = {10, 10, 10}
+Output: 0
+Explanation: As all the elements of array are same, so there is no inversion count.
+Expected Time Complexity: O(nLogn).
+Expected Auxiliary Space: O(n).
+
+
+
+solutions:
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+solution 1:
+    def inversionCount(self, arr, n):
+        count=0
+        for i in range(n):
+            for j in range(i,n):
+                if(arr[i]>arr[j] and i<j):
+                    count+=1
+                else:
+                    continue
+        return count
+
+solution 2:
+class Solution:
+    #User function Template for python3
+
+    def merge(self,l,mid,r,arr):
+        #initialization
+        arr1=arr[l:mid+1]
+        arr2=arr[mid+1:r+1]
+
+        m,n=len(arr1),len(arr2)
+        cnt=0
+            
+        k=l
+        i=0
+        j=0
+        while i<m and j<n:
+            if arr1[i]<=arr2[j]:
+                arr[k]=arr1[i]
+                i+=1
+                l+=1
+            else:
+                cnt+=mid-l+1
+                arr[k]=arr2[j]
+                j+=1
+            k+=1
+        
+        while i<m:
+            arr[k]=arr1[i]
+            i+=1
+            k+=1
+        
+        while j<n:
+            arr[k]=arr2[j]
+            j+=1
+            k+=1
+        
+        return cnt
+        
+    
+    
+    def mergeSort(self,l,r,arr):
+        x=0
+        if l<r:
+            mid=l+(r-l)//2
+            x+=self.mergeSort(l,mid,arr)
+            x+=self.mergeSort(mid+1,r,arr)
+            x+=self.merge(l,mid,r,arr)
+        return x
+    
+    # arr[]: Input Array
+    # N : Size of the Array arr[]
+    #Function to count inversions in the array.
+    def inversionCount(self, arr, n):
+        return self.mergeSort(0,n-1,arr)
+        # Your Code Here
+
+
+        
